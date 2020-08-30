@@ -36,3 +36,8 @@ Implementation logic:
 
 15. go to step 4.
 
+
+To compile and run this program, you need to do below:
+
+[ ] gcc stack.c spiral.c
+[ ] ./.aout 
