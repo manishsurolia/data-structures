@@ -1,0 +1,38 @@
+To traverse a tree in spiral form, we need to use 2 stacks.
+
+For example, below is a tree.
+
+                A      ---> Traverse left to right.
+               / \
+              /   \
+             C     B   <--- Traverse right to left.
+            /\    / \
+           D  E  F   G ---> Traverse left to right.
+
+spiral traverse of this tree will be:
+
+A, B, C, D, E, F, G
+
+
+Implementation logic:
+
+1. Get the root node.
+2. Get two stacks, named 'left_to_right' and 'right_to_left'.
+3. push root node to 'left_to_right'.
+
+4. repeat 5 to 14 until any of the two stacks has element.
+
+5. repeat 6 to 9 steps until 'left_to_right' is not empty.
+6. pop a node from 'left_to_right' and print.
+7. get this node's left node, and push it to 'right_to_left'.
+8. get this node's right node, and push it to 'right_to_left'.
+9. go to step 5.
+
+10. repeat 11 to 14 until'right_to_left' is not empty.
+11. pop a node from 'right_to_left' and print.
+12. get this node's right node, and push it to 'left_to_right'.
+13. get this node's left node, and push it to 'left_to_right'.
+14. go to step 10.
+
+15. go to step 4.
+
