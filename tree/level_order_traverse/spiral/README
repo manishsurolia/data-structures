@@ -40,4 +40,4 @@ Implementation logic:
 To compile and run this program, you need to do below:
 
 [ ] gcc stack.c spiral.c
-[ ] ./.aout 
+[ ] ./a.out 
