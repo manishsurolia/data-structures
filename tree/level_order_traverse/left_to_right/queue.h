@@ -1,19 +1,30 @@
-#include <stdio.h>                                                               
-#include <stdlib.h>                                                              
-                                                                                 
-typedef unsigned long ulonglong;                                                 
-typedef unsigned char uchar;                                                     
-#define QUEUE_SIZE 128                                                           
-#define TRUE 1                                                                   
-#define FALSE 0                                                                  
-                                                                                 
-struct queue                                                                     
-{                                                                                
-    ulonglong front;                                                             
-    ulonglong rear;                                                              
-    void * array[QUEUE_SIZE];                                                    
-};                                                                               
-struct queue * create_queue(void);                                               
-void enqueue(struct queue * p, void * data);                                     
-void * dequeue(struct queue *p);                                                 
-uchar is_queue_empty(struct queue *p);
+/*
+ * queue.h : queue specific declarations.
+ */
+
+#ifndef __QUEUE_H__
+#define __QUEUE_H__
+
+#include "common.h"
+#define QUEUE_SIZE 128
+
+typedef struct queue
+{
+    ulonglong front;
+    ulonglong rear;
+    void * data[QUEUE_SIZE];
+} queue;
+
+extern boolean
+init_queue (queue *q);
+
+extern boolean
+enqueue(queue * p, void *data);
+
+extern boolean
+dequeue(queue *p, void **data);
+
+extern uchar
+is_queue_empty(struct queue *p);
+
+#endif /* __QUEUE_H__ */
