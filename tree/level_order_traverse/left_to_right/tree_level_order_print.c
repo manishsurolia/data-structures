@@ -8,8 +8,6 @@ typedef struct tree
     int data;
 } tree;
 
-static queue q;
-
 /*
  * add_node : add a new node in tree by comparing data. Lesser value data goes
  * in left, and bigger value data goes to right of the tree.
@@ -49,6 +47,7 @@ boolean
 print_level_by_level(tree *p)
 {
     boolean ret = TRUE;
+    queue q;
 
     /*
      * Verify the arguments.
