@@ -43,6 +43,41 @@ add_node(tree *p, int data)
  * Output : TRUE/FALSE
  */
 
+void
+print_level_by_level(tree *p)
+{
+    queue q;
+
+    init_queue(&q);
+
+    while (1) {
+        if (p) {
+            printf("%d ",p->data);
+        }
+
+        if (p->left) {
+            enqueue(&q, p->left);
+        }
+
+        if (p->right) {
+            enqueue(&q, p->right);
+        }
+
+        if (!is_queue_empty(&q)) {
+            dequeue(&q, (void **)&p);
+        } else {
+            break;
+        }
+    }
+    printf("\n");
+}
+
+/* Below is old Implementation.
+ * Lots of checks.
+ * Disabling for now.
+ */
+
+#if 0
 boolean
 print_level_by_level(tree *p)
 {
@@ -106,6 +141,7 @@ print_level_by_level(tree *p)
     printf("\n");
     return ret;
 }
+#endif
 
 int main()
 {
