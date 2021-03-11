@@ -19,11 +19,8 @@ int identical(tree *p, tree *q)
         if (!p || !q) {
             return 0;
         } else if (p->data == q->data) {
-            if (identical(p->left, q->left)) {
-                return identical(p->right, q->right);
-            } else {
-                return 0;
-            }
+            return (identical(p->left, q->left) &&
+                    identical(p->right, q->right));
         } else {
             return 0;
         }
@@ -63,7 +60,6 @@ int main(void)
     q = add_node(q, 30);
     q = add_node(q, 60);
     q = add_node(q, 55);
-    q = add_node(q, 65);
     q = add_node(q, 65);
 
     printf("identical : %d",identical(p, q));
