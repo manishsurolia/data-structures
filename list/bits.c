@@ -23,9 +23,21 @@ int count_set_bits(int x)
     return count;
 }
 
+int endian_swap(int var)
+{
+    int byte0, byte1, byte2, byte3;
+    byte0 = (var & 0x000000FF);
+    byte1 = (var & 0x0000FF00);
+    byte2 = (var & 0x00FF0000);
+    byte3 = (var & 0xFF000000);
+
+    return ((byte0 << 24) | (byte1 << 8) | (byte2 >> 8) | (byte3 >> 24));
+
+}
+
 int main(void)
 {
-    int a,b;
+    int a,b, var = 0x12345678;
     printf("\nsign = %d, sign = %d\n",SIGN(-5000), SIGN(+5));
 
     a = 10;
@@ -46,5 +58,10 @@ int main(void)
     TOGGLE_BIT(a, 0);
     printf("\na after TOGGLE_BIT : %d\n",a);
     printf("\ncount set bits(2) : %d\n",count_set_bits(9));
+
+    printf("print before endianness change : 0x%x\n",var);
+    var = endian_swap(var);
+    printf("print after endianness change : 0x%x\n",var);
+
     return 0;
 }
