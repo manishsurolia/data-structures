@@ -15,8 +15,8 @@ void postorder_print(tree *p)
 {
     if (p) {
         postorder_print(p->right);
-        printf("%d ",p->data);    
         postorder_print(p->left);
+        printf("%d ",p->data);
     }
     return;
 }

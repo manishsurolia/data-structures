@@ -14,8 +14,8 @@ typedef struct tree
 void inorder_print(tree *p)
 {
     if (p) {
-        printf("%d ",p->data);    
         inorder_print(p->left);
+        printf("%d ",p->data);
         inorder_print(p->right);
     }
     return;
@@ -48,6 +48,7 @@ int main(void)
     p = add_node(p, 65);
 
     inorder_print(p);
+    printf("\n");
     return 0;
 }
 

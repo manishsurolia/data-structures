@@ -14,8 +14,8 @@ typedef struct tree
 void preorder_print(tree *p)
 {
     if (p) {
-        preorder_print(p->left);
         printf("%d ",p->data);    
+        preorder_print(p->left);
         preorder_print(p->right);
     }
     return;
