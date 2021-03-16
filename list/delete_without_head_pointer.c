@@ -1,4 +1,6 @@
 /*
+ * https://www.geeksforgeeks.org/must-do-coding-questions-for-product-based-companies/
+ *
  * Delete without head pointer
  *
  * You are given a pointer/ reference to the node which is to be deleted from
