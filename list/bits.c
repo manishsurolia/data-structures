@@ -35,6 +35,17 @@ int endian_swap(int var)
 
 }
 
+void find_endianness(void)
+{
+    unsigned int var = 1;
+    char *c = (char *)&var;
+    if (*c) {
+        printf("Its a little endian machine.\n");
+    } else {
+        printf("Its a big endian machine.\n");
+    }
+}
+
 int main(void)
 {
     int a,b, var = 0x12345678;
@@ -63,5 +74,6 @@ int main(void)
     var = endian_swap(var);
     printf("print after endianness change : 0x%x\n",var);
 
+    find_endianness();
     return 0;
 }
