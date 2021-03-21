@@ -10,7 +10,7 @@ struct tree
 
 struct tree * add_node(struct tree *p, int data)
 {
-    if(p == NULL) {
+    if(!p) {
         p = (struct tree *) malloc (sizeof(struct tree));
         p->data = data;
         p->left = NULL;
@@ -25,26 +25,30 @@ struct tree * add_node(struct tree *p, int data)
 
 struct tree * LCA(struct tree *p, int data1, int data2)
 {
-    struct tree *left=NULL;
-    struct tree *right=NULL;
-    if(p == NULL) {
-        return NULL;
-    } else {
-        if((p->data == data1) || (p->data == data2)) {
-            return p;
-        } else {
-            left = LCA(p->left, data1, data2);
-            right = LCA(p->right, data1, data2);
+    struct tree *left;
+    struct tree *right;
+    struct tree *ret;
 
-            if((left == NULL) && (right == NULL)) {
-                return NULL;
-            } else if(left !=NULL && right != NULL) {
-                return p;
-            } else {
-                return (left != NULL) ? left : right;
-            }
-        }
+    if(!p) {
+        return p;
     }
+
+    if((p->data == data1) || (p->data == data2)) {
+        return p;
+    }
+
+    left = LCA(p->left, data1, data2);
+    right = LCA(p->right, data1, data2);
+
+    if(!left && !right) {
+        ret = NULL;
+    } else if(left && right) {
+        ret = p;
+    } else {
+        ret = left ? left : right;
+    }
+
+    return ret;
 }
 
 int main()
@@ -62,11 +66,12 @@ int main()
     first = add_node(first, 7);
     first = add_node(first, 88);
 
-    searched_node = LCA(first, 10, 5);
+    searched_node = LCA(first, 40, 88);
+
     if(searched_node) {
-        printf("\nlca is : %d\n",searched_node->data);
+        printf("lca is : %d\n",searched_node->data);
     } else {
-        printf("\nfound lca is NULL\n");
+        printf("found lca is NULL\n");
     }
 
     return 0;
