@@ -29,24 +29,21 @@ struct tree * LCA(struct tree *p, int data1, int data2)
     struct tree *right;
     struct tree *ret;
 
-    if(!p) {
+    if(!p)
         return p;
-    }
 
-    if((p->data == data1) || (p->data == data2)) {
+    if((p->data == data1) || (p->data == data2))
         return p;
-    }
 
     left = LCA(p->left, data1, data2);
     right = LCA(p->right, data1, data2);
 
-    if(!left && !right) {
+    if(!left && !right)
         ret = NULL;
-    } else if(left && right) {
+    else if(left && right)
         ret = p;
-    } else {
+    else
         ret = left ? left : right;
-    }
 
     return ret;
 }
@@ -66,7 +63,7 @@ int main()
     first = add_node(first, 7);
     first = add_node(first, 88);
 
-    searched_node = LCA(first, 40, 88);
+    searched_node = LCA(first, 7, 95);
 
     if(searched_node) {
         printf("lca is : %d\n",searched_node->data);
