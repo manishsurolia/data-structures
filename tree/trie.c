@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define CHAR_SIZE 26
 #define TRUE 1
@@ -46,3 +47,37 @@ void add_string(trie *p, char *str)
     return;
 }
 
+void print(trie *p, char str[], int level)
+{
+    if (is_leaf(p)) {
+        str[level] = '\0';
+        printf("%s\n",str);
+    }
+
+    for (int i=0; i<CHAR_SIZE; i++) {
+        if (p->children[i]) {
+            str[level] = i + 'a';
+            print(p->children[i], str, level+1);
+        }
+    }
+}
+
+int main()
+{
+    trie * root = create_node();
+    add_string(root, "manprakash");
+    add_string(root, "savita");
+    add_string(root, "a");
+    add_string(root, "apple");
+    add_string(root, "an");
+    add_string(root, "and");
+    add_string(root, "manisha");
+    add_string(root, "manish");
+    add_string(root, "meenakshi");
+    add_string(root, "pratiksha");
+    add_string(root, "arjun");
+
+    char str[20];
+    print(root, str, 0);
+    return 0;
+}
