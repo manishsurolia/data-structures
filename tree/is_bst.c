@@ -22,6 +22,17 @@ void print(tree *p)
     return;
 }
 
+void free_tree(tree *p)
+{
+    if (!p)
+        return;
+
+    free_tree(p->left);
+    free_tree(p->right);
+    free(p);
+    return;
+}
+
 tree * add_node(tree *p, int d)
 {
     if (!p) {
@@ -36,7 +47,46 @@ tree * add_node(tree *p, int d)
     }
     return p;
 }
+/*
+ * Good solution.
+ * The problem with below bad solution is that, it just checks whether
+ * the left child and right child is following the properties of BST or not.
+ * Hence, it is localized BST check, which cause problem is such below
+ * scenario:
+ *
+ *              5
+ *             /\
+ *            4  8
+ *               /\
+ *              3  9
+ *
+ * The bad solution below with say that its a BST, because at each node level,
+ * left and right, follows the property of BST, but actually its not BST,
+ * because 3 is lesser than the top most node 5, which is not possible in a
+ * BST.
+ */
+int is_valid_bst(tree* root, tree* smaller, tree* bigger)
+{
+    if (!root)
+        return 1;
 
+    if ((smaller && (root->data <= smaller->data)) ||
+        (bigger && (root->data >= bigger->data)))
+        return 0;
+
+    return is_valid_bst(root->left, smaller, root) &&
+           is_valid_bst(root->right, root, bigger);
+}
+
+int is_bst(tree* root)
+{
+    return is_valid_bst(root, NULL, NULL);
+}
+
+/*
+ * Bad Solution. Never use this to check for BST
+ */
+/*
 int is_bst(tree *p)
 {
     int res1 = 1;
@@ -63,6 +113,7 @@ int is_bst(tree *p)
         return (res1 && res2) ? 1 : 0;    
     }
 }
+*/
 
 int main(void)
 {
@@ -74,8 +125,23 @@ int main(void)
     p = add_node(p, 60);
     p = add_node(p, 55);
     p = add_node(p, 65);
+    printf("is_bst : %d\n", is_bst(p));
+    free_tree(p);
 
-    printf("\nis_bst : %d\n", is_bst(p));
+
+    p = NULL;
+    p = add_node(p, 5);
+    p = add_node(p, 4);
+    p = add_node(p, 8);
+    p = add_node(p, 7);
+    p = add_node(p, 9);
+
+    /* make it non-bst */
+    printf("is_bst : %d\n", is_bst(p));
+    p->right->left->data = 3;
+    printf("is_bst : %d\n", is_bst(p));
+    free_tree(p);
+
     return 0;
 }
 
