@@ -1,3 +1,43 @@
+/*
+ * Given a string s, return the longest palindromic substring in s.
+ *
+ * Example 1:
+ *
+ * Input: s = "babad"
+ * Output: "bab"
+ * Note: "aba" is also a valid answer.
+ *
+ * Example 2:
+ *
+ * Input: s = "cbbd"
+ * Output: "bb"
+ *
+ * Example 3:
+ *
+ * Input: s = "a"
+ * Output: "a"
+ *
+ * Example 4:
+ *
+ * Input: s = "ac"
+ * Output: "a"
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= s.length <= 1000
+ * s consist of only digits and English letters (lower-case and/or upper-case),
+ *
+ * Solution:
+ *
+ * solution for this is based on the approach of 2-D matrix array.
+ * as per the explanation of this video.
+ *
+ * https://www.youtube.com/watch?v=UflHuQj6MVA
+ *
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +49,7 @@ char * longestPalindrome(char * s)
     int max_row=0, max_col=0;
     char *result;
     int i,j,offset;
-    
+
     if (size == 1)
         return s;
 
@@ -43,7 +83,7 @@ char * longestPalindrome(char * s)
             }
         }
     }
-    
+
     result = malloc((sizeof(char) * (max_col-max_row)) + 2);
     result[0] = s[max_row];
     result[1] = '\0';
@@ -53,9 +93,9 @@ char * longestPalindrome(char * s)
         }
         result[j] = '\0';
     }
-    
+
     return result;
-    
+
 }
 
 int main(int argc, char **argv)
