@@ -1,0 +1,493 @@
+This complete section talks about 'Heap', 'Heap Sort', 'Heapify' and 'priority
+Queues'.
+
+
+To understand All these sections, we shall follow below topics one by one.
+
+1. Array Representation of a Binary Tree.
+2. Full Binary Tree
+3. Complete Binary Tree.
+4. Heap
+5. Insert node in a Heap.
+6. delete node from a Heap.
+7. Heap Sort.
+8. Heapify.
+9. Priority Queue.
+
+==========================================
+1. Array representation of a binrary Tree:
+==========================================
+
+Rules:
+
+    If a node is at index 'i',
+        -> Its left child will be at '2*i'
+        -> Its right child will be at '2*i+1'
+        -> Its parent will be at |i/2| (floor of 'i/2')
+                                 ----
+
+Note : All our arrary representations start with index '1' not '0' to follow
+       the above rules.
+
+Example 1:
+----------
+
+                A
+               / \
+              B   C
+             /\   /\
+            D  E  F G
+
+      _____________________________
+     |  |A | B | C | D | E | F | G |
+      -----------------------------
+      0  1   2   3   4   5   6   7
+
+Here, since, A is at index '1',
+      So, as per above rules, B is at 2 (1*2),
+                          and C is at 3 (1*2+1)
+
+again, since B is at index '2',
+      So, as per above rules, D is at 4 (2*2)
+                              E is at 5 (2*2+1)
+                       parent A is at 1 (2/2)
+
+
+again, since C is at index '3',
+     So, as per above rules, F is at 6 (3*2)
+                             G is at 7 (3*2+1)
+                      parent A is at 1 (floor value of 3/2)
+
+
+and so on..
+
+
+Example 2:
+----------
+
+        
+                A
+               / \
+              B   C
+             /\
+            D  E
+
+      ______________________
+     |  |A | B | C | D | E |
+      ----------------------
+      0  1   2   3   4   5
+
+
+Example 3:
+----------
+
+As per the rules above index 4 and 5 dont have anything in the array as
+there is no child of B.
+
+                A
+               / \
+              B   C
+                  /\
+                 D  E
+
+      _____________________________
+     |  |A | B | C | - | - | D | E |
+      -----------------------------
+      0  1   2   3   4   5   6   7
+
+===================
+2. Full Binary Tree:
+===================
+
+
+A binary tree is a full binary tree, if it has maximum nodes in it.
+
+A binary tree can have maximum of 2^(h+1) - 1 nodes, where 'h' is height of
+the tree.
+
+for example, for below binary tree:
+
+
+                A      - height 0
+               / \
+              B   C    - height 1
+             /\   /\
+            D  E  F G  - height 2
+
+at height 0, it can have maximum 1 node (as per the rule above).
+at height 1, it can have maximum 3 nodes (as per the rule above).
+at height 2, it can have maximum 7 nodes (as per the rule above).
+
+Hence, above is a full binary tree, because it has maximum 5 nodes in it.
+
+                A
+               / \
+              B   C
+             /\
+            D  E
+
+The above is not a full binary tree as it has only 5 nodes but as per its
+height, the tree can have maximum of 7 nodes.
+
+
+
+=========================
+3. Complete Binary Tree:
+=========================
+
+When we represent a binary tree in an array, if there is no gaps in between
+any of the 2 elements, its a complete binary tree.
+
+
+                A
+               / \
+              B   C
+             /\
+            D  E
+
+      ______________________
+     |  |A | B | C | D | E |
+      ----------------------
+      0  1   2   3   4   5
+
+here, there is no gaps between any 2 elements, so its a complete binary tree.
+
+
+
+                A
+               / \
+              B   C
+                  /\
+                 D  E
+
+      _____________________________
+     |  |A | B | C | - | - | D | E |
+      -----------------------------
+      0  1   2   3   4   5   6   7
+
+here, there i a gap between 'C' and 'D', so its not a complete binary tree.
+
+note : height of a complete binary tree is always log(n) , where n is the number
+of nodes in a tree.
+
+
+========
+4. Heap:
+========
+
+very-very important note : HEAP IS ALWAYS A COMPLETE BINARY TREE.
+
+Look at below examples,
+
+
+(1) Max Heap: A complete binary tree where a node is mandatorily have higher
+              value (or equal) then its children.
+
+
+                50
+               / \
+              30  20
+             /\   /\
+           15 10 8  16
+
+      ____________________________________
+     |  |50 | 30 | 20 | 15 | 10 | 8 | 16 |
+      -----------------------------------
+      0   1   2    3     4    5    6   7
+
+
+
+(2) Min Heap: A complete binary tree where a node is mandatorily have lower
+              value (or equal) then its children.
+
+
+                10
+               / \
+              30  20
+             /\   /\
+           35 40 32 25
+
+      _____________________________________
+     |  |10 | 30 | 20 | 35 | 40 | 32 | 25 |
+      -------------------------------------
+      0   1   2    3     4    5    6   7
+
+=========================
+5. Insert node in a Heap:
+=========================
+
+Lets take an example of already existing max heap.
+
+
+                50
+               / \
+              30  20
+             /\   /\
+           15 10 8  16
+
+      ____________________________________
+     |  |50 | 30 | 20 | 15 | 10 | 8 | 16 |
+      -----------------------------------
+      0   1   2    3     4    5    6   7
+
+
+Now, I want to insert an element with value '60' here.
+
+Step 1 : first insert it at last index in the array. Means the last node of the
+         tree.
+
+                50
+               / \
+              30  20
+             /\   /\
+           15 10 8  16
+          /
+         60
+
+      _______________________________________
+     |  |50 | 30 | 20 | 15 | 10 | 8 | 16 | 60|
+      ---------------------------------------
+      0   1   2    3     4    5    6   7   8
+
+Step 2 : Since 60 is greater than 15, so move it up.
+         Adjust the element '60' as below:
+         swap it with '15'.
+
+
+                50
+               / \
+              30  20
+             /\   /\
+           60 10 8  16
+          /
+         15
+
+      _______________________________________
+     |  |50 | 30 | 20 | 60 | 10 | 8 | 16 | 15|
+     -----------------------------------------
+      0   1   2    3     4    5    6   7   8
+
+ 
+Step 3 : Since 60 is still greater than 30, so move it up.
+         Adjust the element '60' as below:
+         swap it with '30'.
+
+
+                50
+               / \
+              60  20
+             /\   /\
+           30 10 8  16
+          /
+         15
+
+      _______________________________________
+     |  |50 | 60 | 20 | 30 | 10 | 8 | 16 | 15|
+     -----------------------------------------
+      0   1   2    3     4    5    6   7   8
+
+
+Step 4 : Since 60 is still greater than 50, so move it up.
+         Adjust the element '60' as below:
+         swap it with '50'.
+
+
+                60
+               / \
+              50  20
+             /\   /\
+           30 10 8  16
+          /
+         15
+
+      _______________________________________
+     |  |60 | 50 | 20 | 30 | 10 | 8 | 16 | 15|
+     -----------------------------------------
+      0   1   2    3     4    5    6   7   8
+
+
+Now, the element '60' has been inserted properly.
+
+
+How many minimum and maximum swaps are required for a node to get fitted in the
+already existing tree?
+
+Ans : 
+
+The minimum swaps required is 0, for example, suppose this element was 6, so
+there was no swap required.
+
+The maximum swaps depends on the hieight of the tree. It takes maximum of
+height of the complete binary tree. O(log(n)).
+
+==========================
+6. delete node from a Heap.
+==========================
+
+
+Lets take an example of already existing max heap.
+
+
+                50
+               / \
+              30  20
+             /\   /\
+           15 10 8  16
+
+      ____________________________________
+     |  |50 | 30 | 20 | 15 | 10 | 8 | 16 |
+      -----------------------------------
+      0   1   2    3     4    5    6   7
+
+If, you want to delete an element from a heap, you can delete only the root
+element, you cant delete any other element from the heap. its just like any
+heap of apples/oranges you see in the market. you can remove only from the top.
+
+But note one thing, that you cant just delete the top element here, and keep
+adjusting the whole heap from top to bottom, because it destrys the 'complete 
+binary tree' property of the tree.
+
+To remove the root element and adjust it with keeping the 'complete binary tree'
+property intact, you need to keep the last element at the root just after
+deleing the root.
+
+
+so, lets remove the root element here.
+
+remove 50 and keep the last node '16' on the place of this root node.
+
+
+                16
+               / \
+              30  20
+             /\   /
+           15 10 8
+
+      ____________________________________
+     |  |16 | 30 | 20 | 15 | 10 | 8 |    |
+      -----------------------------------
+      0   1   2    3     4    5    6   7
+
+
+Since, now, root's child is bigger than root, swap 16 and 30 as below:
+
+
+                30
+               / \
+              16  20
+             /\   /
+           15 10 8
+
+      ____________________________________
+     |  |30 | 16 | 20 | 15 | 10 | 8 |    |
+      -----------------------------------
+      0   1   2    3     4    5    6   7
+
+
+Now, 16's children are smaller than 16, so it placed at good place. no need to
+do any more adjustments now.
+
+
+How many swaps it has to do to adjust.
+
+again it depends on the height of the tree. Max : O(log n)
+
+==============
+7. Heap Sort.
+==============
+
+
+Just keep the removed root element at the very end of the array, because with
+each deletion of the root node, one space gets empty at the end of the array.
+
+
+for example, if you continue  from the above example of the remomval, just keep
+the last element at the place which got empty(7th index). Though your tree has
+elements only till 6th index.
+
+so, it becomes like this.
+
+
+                30
+               / \
+              16  20
+             /\   /
+           15 10 8
+                                    |
+      ______________________________|_____
+     |  |30 | 16 | 20 | 15 | 10 | 8 | 50  |
+      ------------------------------|------
+      0   1   2    3     4    5   6 |   7
+
+
+
+Now, you remove the next root element, and keep it at the empty place of the
+tree.
+
+
+
+                8
+               / \
+              16  20
+             /\
+           15 10 
+                               |    
+      _________________________|__________
+     |  |8 | 16 | 20 | 15 | 10 | 30 | 50  |
+      -------------------------|-----------
+      0   1   2    3     4   5 |   6    7
+
+Now, adjust the root. 20 will come on the place of 8.
+
+
+                20
+               / \
+              16  8
+             /\
+           15 10 
+                               |    
+      _________________________|__________
+     |  |20 | 16 | 8 | 15 | 10 | 30 | 50  |
+      -------------------------|-----------
+      0   1   2    3     4   5 |   6    7
+
+
+If, you keep repeting the steps above, finally you will get the below array.
+
+
+      _____________________________________
+     |  |8 | 10 | 15 | 16 | 20 | 30 | 50  |
+      -------------------------------------
+      0   1   2    3     4   5    6    7
+
+
+
+This is heap sort.
+
+    -> first create heap by adding the nodes at the end and adjusting.
+    -> now, remove the nodes one by one from the root.
+
+Time complexity :
+
+to add each element, it takes : O(log n)
+so for all n elements, it takes O(n log n).
+
+to delete each element, it takes : O(log n)
+so for all n elements, it takes O(n log n).
+
+
+so total time complexity, it takes O(nlogn) + O(n log n) = O(2 n log n)
+
+
+===========
+8. Heapify.
+===========
+
+Heapify is just another method to re-arrange the elements in the array in such
+a way that it takes only O(n) instead of 'n log(n)' as it was taking earlier.
+
+
+
+
+
+
