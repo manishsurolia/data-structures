@@ -484,10 +484,121 @@ so total time complexity, it takes O(nlogn) + O(n log n) = O(2 n log n)
 ===========
 
 Heapify is just another method to re-arrange the elements in the array in such
-a way that it takes only O(n) instead of 'n log(n)' as it was taking earlier.
+a way that it make a heap(max heap or min heap).
+
+
+For example, lets take a complete binary tree which is not a heap at present.
 
 
 
+                10
+               / \
+             20  15
+             /\   /\
+           12 40 25 18
+
+      ____________________________________
+     |  |10 | 20 | 15 | 12 | 40 | 25 | 18 |
+      ------------------------------------
+      0   1   2    3     4    5    6   7
+
+Here, to create heap out of this array, we will just adjust the elements from
+last to satisfy the properties of heap.
 
 
 
+steps to heapify with O(n). we are trying to make max heap.
+
+-> first check the last element '18'(last index 7).
+It has no descendents. so 18 is good.
+This alone element is a heap. nothing to do here.
+
+-> now check 25(index 6), again, there is nothing below that, so its good.
+This alone is a heap. Nothing to be done here.
+
+-> Same for 40(index 5) and 12(index 4) also.
+
+->  Now, next element is 15(index 3), it has children.
+See whether this 15 and its children make a heap or not.
+
+No, because its children are bigger than this.
+Compare both children. 25 is greater than 18. So replace 15 with 25.
+
+-> now, the tree looks like this.
+
+
+                10
+               / \
+             20  25
+             /\   /\
+           12 40 15 18
+
+      ____________________________________
+     |  |10 | 20 | 25 | 12 | 40 | 15 | 18 |
+      ------------------------------------
+      0   1   2    3     4    5    6   7
+
+-> now, go to next element 20 at index 2. its children 40 is bigger than 20.
+so replace it with 40 as below.
+
+
+
+                10
+               / \
+             40  25
+             /\   /\
+           12 20 15 18
+
+      ____________________________________
+     |  |10 | 40 | 25 | 12 | 20 | 15 | 18 |
+      ------------------------------------
+      0   1   2    3     4    5    6   7
+
+-> Now, move to the index 1, at index 1, its not heap, because, both of its
+children are bigger.
+
+so, replace 10 with 40.
+
+
+
+                40
+               / \
+             10  25
+             /\   /\
+           12 20 15 18
+
+      ____________________________________
+     |  |40 | 10 | 25 | 12 | 20 | 15 | 18 |
+      ------------------------------------
+      0   1   2    3     4    5    6   7
+
+
+Now, the see whether 10 is making a heap or not.. no below 10 are bigger than
+value 10. so adjust as below:
+
+
+                40
+               / \
+             20  25
+             /\   /\
+           12 10 15 18
+
+      ____________________________________
+     |  |40 | 20 | 25 | 12 | 10 | 15 | 18 |
+      ------------------------------------
+      0   1   2    3     4    5    6   7
+
+
+now, this is a proper max heap.
+
+==================
+9. Priority Queue.
+==================
+
+
+Priority queue is nothing but a min heap or max heap.
+Suppose we want to give high priroty to the lesser number, than we have to make
+the min heap and remove the elements from the top of the tree.
+
+and if we want to give low prirority to the higher number, than we have to make
+the max heap and remove the elements from the top of the tree.
