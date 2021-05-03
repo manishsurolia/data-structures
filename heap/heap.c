@@ -1,5 +1,7 @@
 /*
  * This is exact implementation of heap how it is described in the README.
+ * Below code is based on the concept of max heap.
+ * Similarly, you can change it for min heap as well.
  */
 #include <stdio.h>
 
