@@ -16,7 +16,7 @@ struct output {
     int last;
 };
 
-void search_first_and_last_occrance(int arr[], int left, int right, int element,
+void search_first_and_last_occurrence(int arr[], int left, int right, int element,
                                     struct output *output)
 {
     int first_found = 0;
@@ -43,7 +43,7 @@ int binary_search(int arr[], int left, int right, int element,
     if (left <= right) {
         mid = (left + right)/2;
         if (arr[mid] == element) {
-            search_first_and_last_occrance(arr, left, right, element, output);
+            search_first_and_last_occurrence(arr, left, right, element, output);
         } else if (element < arr[mid]) {
             result = binary_search(arr, left, mid-1, element, output);
         } else {
